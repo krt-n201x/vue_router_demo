@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
+import NotFound from '../views/NotFound.vue'
 // import EventDetails from '@/views/EventDetails.vue'
 import EventDetails from '@/views/event/Details.vue'
 import EventEdit from '@/views/event/Edit.vue'
@@ -38,6 +39,11 @@ const routes = [
         component: EventEdit
       }
     ]
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'NotFound',
+    component: NotFound
   }
 ]
 
