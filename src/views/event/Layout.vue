@@ -26,10 +26,14 @@ export default {
     EventService.getEvent(this.id)
       .then((response) => {
         this.event = response.data
+        if (response && response.status == 204) {
+          this.$router.push({
+            name: '404Resource',
+            params: { resource: 'event' }
+          })
+        }
       })
-      .catch((error) => {
-        console.log(error)
-      })
+      .catch(() => {})
   }
 }
 </script>
