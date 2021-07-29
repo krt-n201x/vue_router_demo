@@ -6,6 +6,10 @@
         >Details</router-link
       >
       |
+      <router-link :to="{ name: 'EventAirline', params: { id } }"
+        >Airline</router-link
+      >
+      |
       <router-link :to="{ name: 'EventEdit', params: { id } }"
         >Edit</router-link
       >

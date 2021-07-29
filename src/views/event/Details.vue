@@ -1,24 +1,7 @@
 <template>
   <div v-if="event">
     <h1>{{ event.name }}</h1>
-    <span v-if="checkid">
-      <h2>Airline name: {{ event.airline.name }}</h2>
-      <img :src="event.airline.logo" />
-      <h3>{{ event.airline.country }}</h3>
-      <p>{{ event.airline.head_quaters }}</p>
-      <p>{{ event.airline.website }}</p>
-      <p>established : {{ event.airline.established }}</p>
-    </span>
-    <div v-if="checkid == false">
-      <span v-for="airline in event.airline" :key="airline.id">
-        <h2>Airline name: {{ airline.name }}</h2>
-        <img :src="airline.logo" />
-        <h3>{{ airline.country }}</h3>
-        <p>{{ airline.head_quaters }}</p>
-        <p>{{ airline.website }}</p>
-        <p>established : {{ airline.established }}</p>
-      </span>
-    </div>
+    <p>Trips : {{ event.trips }}</p>
   </div>
 </template>
 <script>

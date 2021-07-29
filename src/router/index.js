@@ -6,6 +6,7 @@ import NotFound from '../views/NotFound.vue'
 import EventDetails from '@/views/event/Details.vue'
 import EventEdit from '@/views/event/Edit.vue'
 import EventLayout from '@/views/event/Layout.vue'
+import EventAirline from '@/views/event/Airline.vue'
 const routes = [
   {
     path: '/',
@@ -31,6 +32,12 @@ const routes = [
         path: '',
         name: 'EventDetails',
         component: EventDetails
+      },
+      {
+        path: 'airline',
+        name: 'EventAirline',
+        props: true,
+        component: EventAirline
       },
       {
         path: 'edit',
