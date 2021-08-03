@@ -9,7 +9,7 @@
 // import HelloWorld from "@/components/HelloWorld.vue";
 import EventCard from '@/components/EventCard.vue'
 import EventService from '@/services/EventService.js'
-import NProgress from 'nprogress'
+
 export default {
   //receive page variable props in the component
   name: 'EventList',
@@ -31,7 +31,7 @@ export default {
   },
   // eslint-disable-next-line no-unused-vars
   beforeRouteEnter(routeTo, routeFrom, next) {
-    NProgress.start()
+
     EventService.getEvents(parseInt(routeTo.query.perPage) || 10, parseInt(routeTo.query.page) || 1)
       .then((response) => {
         next((comp) => {
@@ -43,12 +43,10 @@ export default {
         next({ name: 'NetworkError' })
     
     })
-      .finally(() =>{
-        NProgress.done()
-      })
+
   },
   beforeRouteUpdate(routeTo, routeFrom, next) {
-    NProgress.start()
+
     EventService.getEventsparseInt((routeTo.query.perPage) || 10, parseInt(routeTo.query.page) || 1)
       .then((response) => {
         this.events = response.data.data
@@ -58,9 +56,7 @@ export default {
       .catch(() => {
         next({ name: 'NetworkError' })
       })
-       .finally(() =>{
-        NProgress.done()
-      })
+
   }
 }
 </script>
