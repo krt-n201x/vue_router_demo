@@ -9,17 +9,12 @@
 // import HelloWorld from "@/components/HelloWorld.vue";
 import EventCard from '@/components/EventCard.vue'
 import EventService from '@/services/EventService.js'
-import { watchEffect } from '@vue/runtime-core'
-
+import NProgress from 'nprogress'
 export default {
   //receive page variable props in the component
   name: 'EventList',
   props: {
     page: {
-      type: Number,
-      required: true
-    },
-    perPage: {
       type: Number,
       required: true
     }
@@ -34,17 +29,38 @@ export default {
       totalEvents: 0 // <-- Added this to store totalEvents
     }
   },
-  created() {
-    watchEffect(() => {
-      EventService.getEvents(this.perPage, this.page)
-        .then((response) => {
-          this.events = response.data.data
-          this.totalEvents = response.headers['x-total-count'] // <-- Store it
+  // eslint-disable-next-line no-unused-vars
+  beforeRouteEnter(routeTo, routeFrom, next) {
+    NProgress.start()
+    EventService.getEvents(parseInt(routeTo.query.perPage) || 10, parseInt(routeTo.query.page) || 1)
+      .then((response) => {
+        next((comp) => {
+          comp.events = response.data.data
+          comp.totalEvents = response.headers['x-total-count']
         })
-        .catch((error) => {
-          console.log(error)
         })
+      .catch(() => {
+        next({ name: 'NetworkError' })
+    
     })
+      .finally(() =>{
+        NProgress.done()
+      })
+  },
+  beforeRouteUpdate(routeTo, routeFrom, next) {
+    NProgress.start()
+    EventService.getEventsparseInt((routeTo.query.perPage) || 10, parseInt(routeTo.query.page) || 1)
+      .then((response) => {
+        this.events = response.data.data
+        this.totalEvents = response.headers['x-total-count']
+        next()
+      })
+      .catch(() => {
+        next({ name: 'NetworkError' })
+      })
+       .finally(() =>{
+        NProgress.done()
+      })
   }
 }
 </script>

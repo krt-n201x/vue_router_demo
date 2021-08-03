@@ -7,15 +7,13 @@ import EventDetails from '@/views/event/Details.vue'
 import EventEdit from '@/views/event/Edit.vue'
 import EventLayout from '@/views/event/Layout.vue'
 import EventAirline from '@/views/event/Airline.vue'
+import NProgress from 'nprogress'
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home,
-    props: (route) => ({
-      page: parseInt(route.query.page) || 0,
-      perPage: parseInt(route.query.perPage) || 10
-    })
+    props: (route) => ({ page: parseInt(route.query.page) || 1 })
   },
   {
     path: '/about',
@@ -64,5 +62,10 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
-
+router.beforeEach(() => {
+  NProgress.start()
+})
+router.afterEach(() => {
+  NProgress.done()
+})
 export default router
